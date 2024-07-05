@@ -1,12 +1,24 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        charMap1 = {}
-        charMap2 = {}
 
-        for c in s:
-            charMap1[c] = charMap1.get(c, 0) + 1
+        if len(s) != len(t):
+            return False
 
-        for c in t:
-            charMap2[c] = charMap2.get(c, 0) + 1
-
-        return charMap1 == charMap2
+        charmap = {}
+        for char in s:
+            if char not in charmap:
+                charmap[char] = 1
+            else:
+                charmap[char] += 1
+        
+        for char in t:
+            if char not in charmap:
+                return False
+            else:
+                charmap[char] -= 1
+                if charmap[char] < 0:
+                    return False
+        
+        return True
+            
+        
