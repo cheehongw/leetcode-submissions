@@ -1,12 +1,16 @@
-import re
-
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        cleanedStr = re.sub(r'[^a-zA-Z0-9]', '', s).lower()
-        for i in range(ceil(len(cleanedStr)/2)):
-            if cleanedStr[i] != cleanedStr[-(i + 1)]:
+        remove_non_alnum = "".join([c for c in s if c.isalnum()])
+        cleaned = remove_non_alnum.lower()
+
+        i = 0
+        j = len(cleaned) - 1
+        while (i < j):
+            if (cleaned[i] == cleaned[j]):
+                i += 1
+                j -= 1
+            else: 
                 return False
 
         return True
-
         
