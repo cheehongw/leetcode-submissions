@@ -1,28 +1,24 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        stack = []
-        parenthesis_map = {
-            '(' : ')',
-            '{' : '}',
-            '[' : ']'
+    
+        bracket_map = {
+            '}' : '{',
+            ')' : '(',
+            ']' : '['
         }
+        
+        stack = []
 
-        for i in range(len(s)):
-            char = s[i]            
-            if (char in parenthesis_map):
-                stack.append(char)
-            else: #closing bracket
-                if len(stack) == 0:
+        for c in s:
+            if c in bracket_map.values():
+                stack.append(c)
+            else:
+                if (len(stack) == 0):
                     return False
-
-                bracket = stack.pop()
-                if parenthesis_map[bracket] != char:
+                check = stack.pop()
+                if (check != bracket_map[c]):
                     return False
-
-        if len(stack) > 0:
-            return False
-
-        return True
-
-
+                
+        
+        return len(stack) == 0
         
