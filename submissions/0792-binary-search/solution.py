@@ -1,13 +1,15 @@
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        pivot = ceil(len(nums)/2)
+        point = len(nums) // 2
         
-        if len(nums) == 1:
-            return 0 if nums[0] == target else -1
-        if target == nums[pivot]:
-            return pivot
-        if target < nums[pivot]:
-            return self.search(nums[:pivot], target) #pivot exclusive
-        else:
-            res = self.search(nums[pivot:], target) #pivot inclusive
-            return pivot + res if res != -1 else -1
+        if len(nums) == 0:
+            return -1
+
+        while (True):
+            if (nums[point] == target):
+                return point
+            elif (target < nums[point]):
+                return self.search(nums[:point], target)
+            else:
+                result = self.search(nums[point + 1:], target) 
+                return result if result == -1 else result + point + 1
