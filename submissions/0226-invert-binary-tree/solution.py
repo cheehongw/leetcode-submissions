@@ -5,13 +5,22 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    # recursive soln
+    # O(n) time complexity
+    # O(1) space complexity - depends on tail recursive or not
+    
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        if (root is None):
+        if root is None:
             return None
-        temp = root.left
-        root.left = self.invertTree(root.right)
-        root.right = self.invertTree(temp)
+            
+        temp = root.right
+        root.right = root.left
+        root.left = temp
+        self.invertTree(root.right)
+        self.invertTree(root.left)
 
         return root
+        
+        
 
         
