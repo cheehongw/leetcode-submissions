@@ -13,12 +13,10 @@ class Solution:
             if (nums[mid_point] < nums[l_ptr]):
                 r_ptr = mid_point
             elif (nums[l_ptr] <= nums[mid_point] <= nums[r_ptr]):
-                r_ptr = mid_point 
+                return nums[l_ptr]
             else:
                 l_ptr = mid_point + 1
 
         return nums[r_ptr]
                 
             
-
-        return nums[l_ptr]
