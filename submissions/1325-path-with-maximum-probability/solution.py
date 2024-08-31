@@ -5,7 +5,9 @@ class Solution:
 
         for i, e in enumerate(edges):
             a, b = e[0], e[1]
-
+            
+            if (succProb[i] == 0):
+                continue
             weight = -log(succProb[i])
 
             adj_xs[a].append((b, weight))
