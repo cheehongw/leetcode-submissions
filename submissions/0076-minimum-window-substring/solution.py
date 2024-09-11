@@ -8,16 +8,28 @@ class Solution:
         freq_map = {}
         for c in t:
             freq_map[c] = freq_map.get(c, 0) + 1
-        
+
+        unique_chars = len(freq_map.keys())
+
         l_ptr, r_ptr = 0,0
         has_t = False
 
-        def contains_t():
-            for k, v in freq_map.items():
-                if v > 0:
-                    return False
+        def contains_t(char, isNewChar):
+            nonlocal unique_chars
 
-            return True
+            if isNewChar:
+                if char in freq_map:
+                    freq_map[char] -= 1
+                    if freq_map[char] == 0:
+                        unique_chars -= 1
+            else:
+                if char in freq_map:
+                    freq_map[char] += 1
+                    if freq_map[char] > 0:
+                        unique_chars += 1
+            
+            return unique_chars == 0
+
 
         min_substr = ""
         shortest_viable_window_size = 10**5 + 1
@@ -26,15 +38,11 @@ class Solution:
             if not has_t:
                 r_ptr += 1
                 new_char = s[r_ptr - 1]
-                if new_char in freq_map:
-                    freq_map[new_char] -= 1
-                has_t = contains_t()
+                has_t = contains_t(new_char, True)
             else:
                 l_ptr += 1
                 removed_char = s[l_ptr - 1]
-                if removed_char in freq_map:
-                    freq_map[removed_char] += 1
-                has_t = contains_t()
+                has_t = contains_t(removed_char, False)
 
             if (has_t and (r_ptr - l_ptr) < shortest_viable_window_size):
                 shortest_viable_window_size = r_ptr - l_ptr
